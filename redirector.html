@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Redirecting...</title>
+  <script>
+    async function redirect() {
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get("id");
+
+      try {
+        const response = await fetch("links.json");
+        const links = await response.json();
+        const target = links[id];
+
+        if (target) {
+          window.location.href = target;
+        } else {
+          document.body.innerText = "Invalid or missing ID.";
+        }
+      } catch (e) {
+        document.body.innerText = "Failed to load redirect data.";
+      }
+    }
+
+    window.onload = redirect;
+  </script>
+</head>
+<body>
+  Перенаправление...
+</body>
+</html>
